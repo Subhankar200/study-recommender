@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #6cb2eb;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #total,
+        #average {
+            background-color: #f9f9f9;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #submitButtonLink {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #submitButtonLink a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #submitButtonLink a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Marks Calculator</h2>
+        <form id="marksForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required><br>
+
+            <label for="english">English Marks:</label>
+            <input type="number" id="english" name="english" required><br>
+
+            <label for="geography">Geography Marks:</label>
+            <input type="number" id="geography" name="geography" required><br>
+
+            <label for="history">History Marks:</label>
+            <input type="number" id="history" name="history" required><br>
+
+            <label for="math">Math Marks:</label>
+            <input type="number" id="math" name="math" required><br>
+
+            <label for="science">Science Marks:</label>
+            <input type="number" id="science" name="science" required><br>
+
+            <label for="computer">Computer Marks:</label>
+            <input type="number" id="computer" name="computer" required><br>
+
+            <button type="button" onclick="calculateMarks()">Calculate</button><br>
+
+            <label for="total">Total Marks:</label>
+            <input type="text" id="total" name="total" readonly><br>
+
+            <label for="average">Average Marks:</label>
+            <input type="text" id="average" name="average" readonly><br>
+
+            <div id="submitButtonLink"></div>
+        </form>
+    </div>
+
+    <script>
+        function calculateMarks() {
+            var english = parseFloat(document.getElementById('english').value);
+            var geography = parseFloat(document.getElementById('geography').value);
+            var history = parseFloat(document.getElementById('history').value);
+            var math = parseFloat(document.getElementById('math').value);
+            var science = parseFloat(document.getElementById('science').value);
+            var computer = parseFloat(document.getElementById('computer').value);
+
+            if (isNaN(english) || isNaN(geography) || isNaN(history) || isNaN(math) || isNaN(science) || isNaN(computer)) {
+                alert("Please fill in all the marks.");
+                return;
+            }
+
+            var totalMarks = english + geography + history + math + science + computer;
+            var averageMarks = totalMarks / 6;
+
+            document.getElementById('total').value = totalMarks;
+            document.getElementById('average').value = averageMarks.toFixed(2);
+
+            var submitUrl = 'quiz.html?firstName=' + encodeURIComponent(document.getElementById('firstName').value) +
+                            '&lastName=' + encodeURIComponent(document.getElementById('lastName').value) +
+                            '&totalMarks=' + encodeURIComponent(totalMarks) +
+                            '&averageMarks=' + encodeURIComponent(averageMarks.toFixed(2));
+            
+            var submitButtonLink = document.getElementById('submitButtonLink');
+            submitButtonLink.innerHTML = '<a href="' + submitUrl + '">Submit</a>';
+        }
+    </script>
+</body>
+</html>
